@@ -1,0 +1,27 @@
+# --- Python Basics ---
+# Python compiles code into these binary files for speed.
+# We don't need to track them.
+__pycache__/
+*.pyc
+
+# --- Virtual Environment ---
+# Contains all the heavy libraries. We track requirements.txt instead.
+venv/
+env/
+.env
+
+# --- Project Specific Data ---
+# Your PDFs and training data are too large for GitHub
+# and might contain sensitive legal info.
+data/raw/
+data/interim/
+data/processed/
+
+# --- IDE Settings ---
+# Your personal VS Code settings (e.g. window color, layout)
+.vscode/
+.idea/
+
+# --- Models ---
+# Trained models can be huge binary files
+models_output/
