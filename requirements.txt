@@ -1,10 +1,7 @@
-# OCR & Image Processing
+spacy>=3.7.0,<4.0.0
 pytesseract==0.3.10
 pdf2image==1.16.3
 opencv-python==4.8.0.76
-numpy==1.24.3
 Pillow==10.0.0
-
-# Data Handling
-pandas
-spacy
+numpy==1.24.3
+pandas>=2.0.0
