@@ -1,11 +1,14 @@
 import pytesseract
 from pdf2image import convert_from_path
-from src.preprocessing.image_utils import preprocess_image
+import sys
 import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
+from src.preprocessing.image_utils import preprocess_image
 import tempfile
 from PIL import Image
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 def extract_text_from_pdf(pdf_path, languages="eng"):
     if not os.path.exists(pdf_path):
@@ -16,7 +19,8 @@ def extract_text_from_pdf(pdf_path, languages="eng"):
             pdf_path,
             dpi=300,
             output_folder=temp_dir,
-            paths_only=True
+            paths_only=True,
+            poppler_path=r"C:\Users\AJIT ASHWATH R\Downloads\poppler-25.12.0\Library\bin"
         )
         for i, image_path in enumerate(image_paths):
             print(f"   -> Cleaning and reading page {i + 1}/{len(image_paths)}...")

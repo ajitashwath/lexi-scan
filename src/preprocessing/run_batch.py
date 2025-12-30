@@ -1,4 +1,7 @@
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
 from src.preprocessing.ocr_engine import extract_text_from_pdf
 
 RAW_DIR = os.path.join("data", "raw")

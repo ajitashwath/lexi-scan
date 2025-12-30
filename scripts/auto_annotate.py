@@ -96,6 +96,11 @@ def main():
     processed_count = 0
     skipped_count = 0
     
+    # Ensure output directory exists
+    output_dir = os.path.dirname(OUTPUT_FILE)
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f_out:
         for filename in files:
             file_path = os.path.join(INPUT_DIR, filename)
