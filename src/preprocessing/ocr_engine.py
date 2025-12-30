@@ -8,20 +8,37 @@ from src.preprocessing.image_utils import preprocess_image
 import tempfile
 from PIL import Image
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+# Set Tesseract path based on OS
+if os.name == 'nt':  # Windows
+    tesseract_path = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    if os.path.exists(tesseract_path):
+        pytesseract.pytesseract.tesseract_cmd = tesseract_path
+    # If not found, try default installation path
+    elif os.path.exists(r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"):
+        pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+# Linux/Docker: tesseract should be in PATH, no need to set
 
 def extract_text_from_pdf(pdf_path, languages="eng"):
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"PDF not found at: {pdf_path}")
     full_text = ""
     with tempfile.TemporaryDirectory() as temp_dir:
-        image_paths = convert_from_path(
-            pdf_path,
-            dpi=300,
-            output_folder=temp_dir,
-            paths_only=True,
-            poppler_path=r"C:\Users\AJIT ASHWATH R\Downloads\poppler-25.12.0\Library\bin"
-        )
+        # Set poppler path only on Windows if custom path exists
+        poppler_path = None
+        if os.name == 'nt':
+            custom_poppler = r"C:\Users\AJIT ASHWATH R\Downloads\poppler-25.12.0\Library\bin"
+            if os.path.exists(custom_poppler):
+                poppler_path = custom_poppler
+        
+        convert_kwargs = {
+            'dpi': 300,
+            'output_folder': temp_dir,
+            'paths_only': True
+        }
+        if poppler_path:
+            convert_kwargs['poppler_path'] = poppler_path
+        
+        image_paths = convert_from_path(pdf_path, **convert_kwargs)
         for i, image_path in enumerate(image_paths):
             print(f"   -> Cleaning and reading page {i + 1}/{len(image_paths)}...")
             try:
