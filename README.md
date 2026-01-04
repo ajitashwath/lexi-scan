@@ -117,9 +117,4 @@ pytest tests/ -v
 ## Troubleshooting
 **OCR fails**: Check Tesseract installation with `tesseract --version`
 **Model not found**: Run `python src/models/train_ner.py`
-
 **Low accuracy**: Add more training PDFs (target: 50+)
-
-## License
-
-MIT
