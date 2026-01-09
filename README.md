@@ -1,6 +1,8 @@
 # LexiScan
 A NLP based automated entity extraction from legal contracts using Optional Character Recognition (OCR) and Named Entity Recognition (NER).
 
+![LexiScan](assets/Lexi-Scan.png)
+
 ## What It Does
 Extracts key information from PDF contracts:
 - Party names
